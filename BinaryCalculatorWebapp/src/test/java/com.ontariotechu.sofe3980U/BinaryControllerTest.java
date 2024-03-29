@@ -49,12 +49,36 @@ public class BinaryControllerTest {
 			.andExpect(model().attribute("operand1Focused", true));
     }
 	@Test
-	    public void postParameter() throws Exception {
+	    public void postAddParameter() throws Exception {
         this.mvc.perform(post("/").param("operand1","111").param("operator","+").param("operand2","111"))//.andDo(print())
             .andExpect(status().isOk())
             .andExpect(view().name("result"))
 			.andExpect(model().attribute("result", "1110"))
 			.andExpect(model().attribute("operand1", "111"));
+    }
+    @Test
+	    public void postMultiplyParameter() throws Exception {
+        this.mvc.perform(post("/").param("operand1","111").param("operator","*").param("operand2","111"))//.andDo(print())
+            .andExpect(status().isOk())
+            .andExpect(view().name("result"))
+			.andExpect(model().attribute("result", "110001"))
+			.andExpect(model().attribute("operand1", "111"));
+    }
+    @Test
+	    public void postAndParameter() throws Exception {
+        this.mvc.perform(post("/").param("operand1","1010").param("operator","&").param("operand2","1111"))//.andDo(print())
+            .andExpect(status().isOk())
+            .andExpect(view().name("result"))
+			.andExpect(model().attribute("result", "1010"))
+			.andExpect(model().attribute("operand1", "1010"));
+    }
+    @Test
+	    public void postOrParameter() throws Exception {
+        this.mvc.perform(post("/").param("operand1","1010").param("operator","|").param("operand2","10101"))//.andDo(print())
+            .andExpect(status().isOk())
+            .andExpect(view().name("result"))
+			.andExpect(model().attribute("result", "11111"))
+			.andExpect(model().attribute("operand1", "1010"));
     }
 
 }

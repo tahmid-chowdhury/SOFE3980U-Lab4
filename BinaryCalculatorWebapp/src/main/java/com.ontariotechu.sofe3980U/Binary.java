@@ -30,11 +30,11 @@ public class Binary
 		//beg has the index of the first non zero digit in the number
 		this.number=number.substring(beg); // exclude the trailing zeros if any
 		// uncomment the following code
-		
-		if(this.number=="") { // replace empty strings with a single zero
+
+        if(this.number=="") { // replace empty strings with a single zero
 			this.number="0";
 		}
-		
+        
     }
 	/**
 	* Return the binary value of the variable
@@ -79,4 +79,56 @@ public class Binary
 		return result;
 		
 	}
+	/**
+	* ORing two binary variables.
+	*
+	* @param num1 The first addend object
+	* @param num2 The second addend object
+	* @return A binary variable with a value of <i>num1 OR num2</i>.
+	*/
+    public static Binary or(Binary num1,Binary num2) {
+        // Convert the binary strings to integers
+        int n1 = Integer.parseInt(num1.getValue(), 2);
+        int n2 = Integer.parseInt(num2.getValue(), 2);
+        // Perform the OR operation
+        int n3 = n1 | n2;
+        // Convert the result back to binary
+        String result = Integer.toBinaryString(n3);
+        return new Binary(result);
+    }
+	/**
+	* ANDing two binary variables.
+	*
+	* @param num1 The first addend object
+	* @param num2 The second addend object
+	* @return A binary variable with a value of <i>num1 AND num2</i>.
+	*/
+    public static Binary and(Binary num1,Binary num2) {
+        // Convert the binary strings to integers
+        int n1 = Integer.parseInt(num1.getValue(), 2);
+        int n2 = Integer.parseInt(num2.getValue(), 2);
+        // Perform the AND operation
+        int n3 = n1 & n2;
+        // Convert the result back to binary
+        String result = Integer.toBinaryString(n3);
+        return new Binary(result);
+    }
+	/**
+	* Multiplying two binary variables.
+	*
+	* @param num1 The first addend object
+	* @param num2 The second addend object
+	* @return A binary variable with a value of <i>num1 * num2</i>.
+	*/
+    public static Binary multiply(Binary num1,Binary num2) {
+        Binary result = new Binary("0");
+        String n2 = new StringBuilder(num2.getValue()).reverse().toString();
+        for (int i = 0; i < n2.length(); i++) {
+            if (n2.charAt(i) == '1') {
+                result = add(result, num1);
+            }
+            num1 = add(num1, num1);
+        }
+        return result;
+    }
 }	
